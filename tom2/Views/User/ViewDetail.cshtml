@@ -1,0 +1,50 @@
+﻿
+@model tom2.Models.detail_model
+
+
+@{
+    ViewBag.Title = "ViewDetail";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<style>
+    td {
+        padding: 20px;
+    }
+</style>
+
+
+
+<div class="col-lg-8 col-md-8">
+
+    <div>
+        <h1>@Model.subcat_name <small>AD-ID:@Model.pro_id</small></h1>
+    </div>
+
+    <img src="@Url.Content(@Model.subcat_image)" style="width:500PX; height:450PX" />
+
+    <div>
+        <h1>Description: </h1>
+        <p>@Model.subcat_desc</p>
+    </div>
+
+    <table>
+
+        <tr> <td>Price: </td> <td>@Model.subcat_price </td> </tr>
+        <tr> <td>Category: </td> <td>@Model.cat_name </td> </tr>
+
+
+
+
+
+
+    </table>
+
+
+
+</div>
+<div class="col-lg-2 col-md-2">
+    <img src="~/Content/img/150_sleep1_600.gif" class="img img-responsive" style=" height:500px;" />
+</div>
+
+

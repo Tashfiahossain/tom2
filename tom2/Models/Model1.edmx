@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="tom2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="admintable">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="admin_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="admin_password" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cat_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cat_image" Type="varchar(max)" Nullable="false" />
+          <Property Name="cat_status" Type="int" />
+          <Property Name="admin_id_fk" Type="int" />
+        </EntityType>
+        <EntityType Name="invoicetable">
+          <Key>
+            <PropertyRef Name="in_id" />
+          </Key>
+          <Property Name="in_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="in_fk_pro" Type="int" />
+          <Property Name="in_date" Type="datetime" />
+          <Property Name="in_totalbill" Type="float" />
+        </EntityType>
+        <EntityType Name="order_table">
+          <Key>
+            <PropertyRef Name="o_id" />
+          </Key>
+          <Property Name="o_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="o_fk_pro" Type="int" />
+          <Property Name="o_fk_user" Type="int" />
+          <Property Name="o_fk_invoice" Type="int" />
+          <Property Name="o_date" Type="datetime" />
+          <Property Name="o_qty" Type="int" />
+          <Property Name="o_bill" Type="float" />
+          <Property Name="o_unitprice" Type="int" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="pro_id" />
+          </Key>
+          <Property Name="pro_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pro_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pro_image" Type="varchar(max)" Nullable="false" />
+          <Property Name="pro_price" Type="int" />
+          <Property Name="pro_desc" Type="varchar(max)" />
+          <Property Name="cat_id_fk" Type="int" />
+          <Property Name="pro_user_id_fk" Type="int" />
+          <Property Name="admin_id_fk" Type="int" />
+        </EntityType>
+        <EntityType Name="usertable">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="u_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="u_password" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="u_image" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="u_email" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="u_contact" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__category__admin___2B3F6F97">
+          <End Role="admintable" Type="Self.admintable" Multiplicity="0..1" />
+          <End Role="category" Type="Self.category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admintable">
+              <PropertyRef Name="admin_id" />
+            </Principal>
+            <Dependent Role="category">
+              <PropertyRef Name="admin_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__invoiceta__in_fk__38996AB5">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="invoicetable" Type="Self.invoicetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="pro_id" />
+            </Principal>
+            <Dependent Role="invoicetable">
+              <PropertyRef Name="in_fk_pro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_tab__o_fk___3B75D760">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="order_table" Type="Self.order_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="pro_id" />
+            </Principal>
+            <Dependent Role="order_table">
+              <PropertyRef Name="o_fk_pro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_tab__o_fk___3C69FB99">
+          <End Role="usertable" Type="Self.usertable" Multiplicity="0..1" />
+          <End Role="order_table" Type="Self.order_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usertable">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="order_table">
+              <PropertyRef Name="o_fk_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_tab__o_fk___3D5E1FD2">
+          <End Role="invoicetable" Type="Self.invoicetable" Multiplicity="0..1" />
+          <End Role="order_table" Type="Self.order_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="invoicetable">
+              <PropertyRef Name="in_id" />
+            </Principal>
+            <Dependent Role="order_table">
+              <PropertyRef Name="o_fk_invoice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__product__admin_i__35BCFE0A">
+          <End Role="admintable" Type="Self.admintable" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admintable">
+              <PropertyRef Name="admin_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="admin_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__product__cat_id___33D4B598">
+          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="cat_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__product__pro_use__34C8D9D1">
+          <End Role="usertable" Type="Self.usertable" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usertable">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="pro_user_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="tom2ModelStoreContainer">
+          <EntitySet Name="admintable" EntityType="Self.admintable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="invoicetable" EntityType="Self.invoicetable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order_table" EntityType="Self.order_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usertable" EntityType="Self.usertable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__category__admin___2B3F6F97" Association="Self.FK__category__admin___2B3F6F97">
+            <End Role="admintable" EntitySet="admintable" />
+            <End Role="category" EntitySet="category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__invoiceta__in_fk__38996AB5" Association="Self.FK__invoiceta__in_fk__38996AB5">
+            <End Role="product" EntitySet="product" />
+            <End Role="invoicetable" EntitySet="invoicetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_tab__o_fk___3B75D760" Association="Self.FK__order_tab__o_fk___3B75D760">
+            <End Role="product" EntitySet="product" />
+            <End Role="order_table" EntitySet="order_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_tab__o_fk___3C69FB99" Association="Self.FK__order_tab__o_fk___3C69FB99">
+            <End Role="usertable" EntitySet="usertable" />
+            <End Role="order_table" EntitySet="order_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_tab__o_fk___3D5E1FD2" Association="Self.FK__order_tab__o_fk___3D5E1FD2">
+            <End Role="invoicetable" EntitySet="invoicetable" />
+            <End Role="order_table" EntitySet="order_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__product__admin_i__35BCFE0A" Association="Self.FK__product__admin_i__35BCFE0A">
+            <End Role="admintable" EntitySet="admintable" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__product__cat_id___33D4B598" Association="Self.FK__product__cat_id___33D4B598">
+            <End Role="category" EntitySet="category" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__product__pro_use__34C8D9D1" Association="Self.FK__product__pro_use__34C8D9D1">
+            <End Role="usertable" EntitySet="usertable" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="tom2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="admintable">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admin_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="admin_password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="categories" Relationship="Self.FK__category__admin___2B3F6F97" FromRole="admintable" ToRole="category" />
+          <NavigationProperty Name="products" Relationship="Self.FK__product__admin_i__35BCFE0A" FromRole="admintable" ToRole="product" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cat_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cat_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cat_status" Type="Int32" />
+          <Property Name="admin_id_fk" Type="Int32" />
+          <NavigationProperty Name="admintable" Relationship="Self.FK__category__admin___2B3F6F97" FromRole="category" ToRole="admintable" />
+          <NavigationProperty Name="products" Relationship="Self.FK__product__cat_id___33D4B598" FromRole="category" ToRole="product" />
+        </EntityType>
+        <EntityType Name="invoicetable">
+          <Key>
+            <PropertyRef Name="in_id" />
+          </Key>
+          <Property Name="in_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="in_fk_pro" Type="Int32" />
+          <Property Name="in_date" Type="DateTime" Precision="3" />
+          <Property Name="in_totalbill" Type="Double" />
+          <NavigationProperty Name="product" Relationship="Self.FK__invoiceta__in_fk__38996AB5" FromRole="invoicetable" ToRole="product" />
+          <NavigationProperty Name="order_table" Relationship="Self.FK__order_tab__o_fk___3D5E1FD2" FromRole="invoicetable" ToRole="order_table" />
+        </EntityType>
+        <EntityType Name="order_table">
+          <Key>
+            <PropertyRef Name="o_id" />
+          </Key>
+          <Property Name="o_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="o_fk_pro" Type="Int32" />
+          <Property Name="o_fk_user" Type="Int32" />
+          <Property Name="o_fk_invoice" Type="Int32" />
+          <Property Name="o_date" Type="DateTime" Precision="3" />
+          <Property Name="o_qty" Type="Int32" />
+          <Property Name="o_bill" Type="Double" />
+          <Property Name="o_unitprice" Type="Int32" />
+          <NavigationProperty Name="invoicetable" Relationship="Self.FK__order_tab__o_fk___3D5E1FD2" FromRole="order_table" ToRole="invoicetable" />
+          <NavigationProperty Name="product" Relationship="Self.FK__order_tab__o_fk___3B75D760" FromRole="order_table" ToRole="product" />
+          <NavigationProperty Name="usertable" Relationship="Self.FK__order_tab__o_fk___3C69FB99" FromRole="order_table" ToRole="usertable" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="pro_id" />
+          </Key>
+          <Property Name="pro_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pro_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pro_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pro_price" Type="Int32" />
+          <Property Name="pro_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cat_id_fk" Type="Int32" />
+          <Property Name="pro_user_id_fk" Type="Int32" />
+          <Property Name="admin_id_fk" Type="Int32" />
+          <NavigationProperty Name="admintable" Relationship="Self.FK__product__admin_i__35BCFE0A" FromRole="product" ToRole="admintable" />
+          <NavigationProperty Name="category" Relationship="Self.FK__product__cat_id___33D4B598" FromRole="product" ToRole="category" />
+          <NavigationProperty Name="invoicetables" Relationship="Self.FK__invoiceta__in_fk__38996AB5" FromRole="product" ToRole="invoicetable" />
+          <NavigationProperty Name="order_table" Relationship="Self.FK__order_tab__o_fk___3B75D760" FromRole="product" ToRole="order_table" />
+          <NavigationProperty Name="usertable" Relationship="Self.FK__product__pro_use__34C8D9D1" FromRole="product" ToRole="usertable" />
+        </EntityType>
+        <EntityType Name="usertable">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="u_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_image" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_contact" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="order_table" Relationship="Self.FK__order_tab__o_fk___3C69FB99" FromRole="usertable" ToRole="order_table" />
+          <NavigationProperty Name="products" Relationship="Self.FK__product__pro_use__34C8D9D1" FromRole="usertable" ToRole="product" />
+        </EntityType>
+        <Association Name="FK__category__admin___2B3F6F97">
+          <End Role="admintable" Type="Self.admintable" Multiplicity="0..1" />
+          <End Role="category" Type="Self.category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admintable">
+              <PropertyRef Name="admin_id" />
+            </Principal>
+            <Dependent Role="category">
+              <PropertyRef Name="admin_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__product__admin_i__35BCFE0A">
+          <End Role="admintable" Type="Self.admintable" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="admintable">
+              <PropertyRef Name="admin_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="admin_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__product__cat_id___33D4B598">
+          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="cat_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__invoiceta__in_fk__38996AB5">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="invoicetable" Type="Self.invoicetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="pro_id" />
+            </Principal>
+            <Dependent Role="invoicetable">
+              <PropertyRef Name="in_fk_pro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_tab__o_fk___3D5E1FD2">
+          <End Role="invoicetable" Type="Self.invoicetable" Multiplicity="0..1" />
+          <End Role="order_table" Type="Self.order_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="invoicetable">
+              <PropertyRef Name="in_id" />
+            </Principal>
+            <Dependent Role="order_table">
+              <PropertyRef Name="o_fk_invoice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_tab__o_fk___3B75D760">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="order_table" Type="Self.order_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="pro_id" />
+            </Principal>
+            <Dependent Role="order_table">
+              <PropertyRef Name="o_fk_pro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__order_tab__o_fk___3C69FB99">
+          <End Role="usertable" Type="Self.usertable" Multiplicity="0..1" />
+          <End Role="order_table" Type="Self.order_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usertable">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="order_table">
+              <PropertyRef Name="o_fk_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__product__pro_use__34C8D9D1">
+          <End Role="usertable" Type="Self.usertable" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usertable">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="pro_user_id_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="tom2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="admintables" EntityType="Self.admintable" />
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="invoicetables" EntityType="Self.invoicetable" />
+          <EntitySet Name="order_table" EntityType="Self.order_table" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="usertables" EntityType="Self.usertable" />
+          <AssociationSet Name="FK__category__admin___2B3F6F97" Association="Self.FK__category__admin___2B3F6F97">
+            <End Role="admintable" EntitySet="admintables" />
+            <End Role="category" EntitySet="categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__product__admin_i__35BCFE0A" Association="Self.FK__product__admin_i__35BCFE0A">
+            <End Role="admintable" EntitySet="admintables" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__product__cat_id___33D4B598" Association="Self.FK__product__cat_id___33D4B598">
+            <End Role="category" EntitySet="categories" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__invoiceta__in_fk__38996AB5" Association="Self.FK__invoiceta__in_fk__38996AB5">
+            <End Role="product" EntitySet="products" />
+            <End Role="invoicetable" EntitySet="invoicetables" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_tab__o_fk___3D5E1FD2" Association="Self.FK__order_tab__o_fk___3D5E1FD2">
+            <End Role="invoicetable" EntitySet="invoicetables" />
+            <End Role="order_table" EntitySet="order_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_tab__o_fk___3B75D760" Association="Self.FK__order_tab__o_fk___3B75D760">
+            <End Role="product" EntitySet="products" />
+            <End Role="order_table" EntitySet="order_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__order_tab__o_fk___3C69FB99" Association="Self.FK__order_tab__o_fk___3C69FB99">
+            <End Role="usertable" EntitySet="usertables" />
+            <End Role="order_table" EntitySet="order_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__product__pro_use__34C8D9D1" Association="Self.FK__product__pro_use__34C8D9D1">
+            <End Role="usertable" EntitySet="usertables" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="tom2ModelStoreContainer" CdmEntityContainer="tom2Entities">
+          <EntitySetMapping Name="admintables">
+            <EntityTypeMapping TypeName="tom2Model.admintable">
+              <MappingFragment StoreEntitySet="admintable">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="admin_name" ColumnName="admin_name" />
+                <ScalarProperty Name="admin_password" ColumnName="admin_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="tom2Model.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+                <ScalarProperty Name="cat_name" ColumnName="cat_name" />
+                <ScalarProperty Name="cat_image" ColumnName="cat_image" />
+                <ScalarProperty Name="cat_status" ColumnName="cat_status" />
+                <ScalarProperty Name="admin_id_fk" ColumnName="admin_id_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="invoicetables">
+            <EntityTypeMapping TypeName="tom2Model.invoicetable">
+              <MappingFragment StoreEntitySet="invoicetable">
+                <ScalarProperty Name="in_id" ColumnName="in_id" />
+                <ScalarProperty Name="in_fk_pro" ColumnName="in_fk_pro" />
+                <ScalarProperty Name="in_date" ColumnName="in_date" />
+                <ScalarProperty Name="in_totalbill" ColumnName="in_totalbill" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order_table">
+            <EntityTypeMapping TypeName="tom2Model.order_table">
+              <MappingFragment StoreEntitySet="order_table">
+                <ScalarProperty Name="o_id" ColumnName="o_id" />
+                <ScalarProperty Name="o_fk_pro" ColumnName="o_fk_pro" />
+                <ScalarProperty Name="o_fk_user" ColumnName="o_fk_user" />
+                <ScalarProperty Name="o_fk_invoice" ColumnName="o_fk_invoice" />
+                <ScalarProperty Name="o_date" ColumnName="o_date" />
+                <ScalarProperty Name="o_qty" ColumnName="o_qty" />
+                <ScalarProperty Name="o_bill" ColumnName="o_bill" />
+                <ScalarProperty Name="o_unitprice" ColumnName="o_unitprice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="tom2Model.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="pro_id" ColumnName="pro_id" />
+                <ScalarProperty Name="pro_name" ColumnName="pro_name" />
+                <ScalarProperty Name="pro_image" ColumnName="pro_image" />
+                <ScalarProperty Name="pro_price" ColumnName="pro_price" />
+                <ScalarProperty Name="pro_desc" ColumnName="pro_desc" />
+                <ScalarProperty Name="cat_id_fk" ColumnName="cat_id_fk" />
+                <ScalarProperty Name="pro_user_id_fk" ColumnName="pro_user_id_fk" />
+                <ScalarProperty Name="admin_id_fk" ColumnName="admin_id_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usertables">
+            <EntityTypeMapping TypeName="tom2Model.usertable">
+              <MappingFragment StoreEntitySet="usertable">
+                <ScalarProperty Name="u_id" ColumnName="u_id" />
+                <ScalarProperty Name="u_name" ColumnName="u_name" />
+                <ScalarProperty Name="u_password" ColumnName="u_password" />
+                <ScalarProperty Name="u_image" ColumnName="u_image" />
+                <ScalarProperty Name="u_email" ColumnName="u_email" />
+                <ScalarProperty Name="u_contact" ColumnName="u_contact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
