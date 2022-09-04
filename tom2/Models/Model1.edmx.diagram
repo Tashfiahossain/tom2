@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0473363aa2474963a52baabd74136f82" Name="Diagram1">
-        <EntityTypeShape EntityType="tom2Model.admintable" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="tom2Model.admintable" Width="1.5" PointX="1.125" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="tom2Model.category" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="tom2Model.invoicetable" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="tom2Model.order_table" Width="1.5" PointX="9.75" PointY="1.25" IsExpanded="true" />
