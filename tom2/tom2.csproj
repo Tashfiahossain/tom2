@@ -243,6 +243,10 @@
     <Content Include="Views\User\DisplayAddU.cshtml" />
     <Content Include="Views\User\ViewDetail.cshtml" />
     <Content Include="Views\User\Ad_tocart.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\User\checkout.cshtml" />
+    <Content Include="Views\Admin\ViewDetail.cshtml" />
+    <Content Include="Views\Admin\DisplayAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="container">
-                    <label for="uname"><b>Username</b></label>
+                    <label for="uname"><b>User email</b></label>
                     @*<input type="text" placeholder="Enter Username" name="uname" required>*@
                     @Html.TextBoxFor(x => x.u_email, new { @class = "form-control", @placeholder = "User Email" })
                     <span style="color:red">@Html.ValidationMessageFor(x => x.u_email)</span>

@@ -77,7 +77,7 @@ namespace tom2.Controllers
             {
                 Session["u_id"] = ad.u_id.ToString();
                 Session["User"] = ad.u_name;
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index");
             }
             else
             {

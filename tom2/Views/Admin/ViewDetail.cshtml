@@ -1,0 +1,63 @@
+﻿
+@model tom2.Models.detail_model
+
+
+@{
+    ViewBag.Title = "ViewDetail";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<style>
+    td {
+        padding: 20px;
+    }
+</style>
+
+
+
+<div class="col-lg-8 col-md-8">
+
+    <div>
+        <h1>@Model.pro_name <small>AD-ID:@Model.pro_id</small></h1>
+    </div>
+
+    <img src="@Url.Content(@Model.pro_image)" style="width:500PX; height:450PX" />
+
+    <div>
+        <h1>Description: </h1>
+        <p>@Model.pro_desc</p>
+    </div>
+
+    <table>
+
+        <tr> <td>Price: </td> <td>@Model.pro_price </td> </tr>
+        <tr> <td>Category: </td> <td>@Model.cat_name </td> </tr>
+
+
+
+
+        <tr>
+            <td colspan="2">
+                @if (Convert.ToInt32(Session["admin_id"]) == Convert.ToInt32(Model.admin_id_fk))
+                {
+
+                    @Html.ActionLink("Close this product", "Add_Delete", new { @class = "btn btn-danger", id = Model.pro_id })
+
+
+
+                }
+            </td>
+        </tr>
+
+    </table>
+
+
+
+</div>
+
+
+
+
+<div class="col-lg-2 col-md-2">
+    <img src="~/Content/img/150_sleep1_600.gif" class="img img-responsive" style=" height:500px;" />
+</div>

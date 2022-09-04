@@ -18,7 +18,7 @@ namespace tom2.Models
         public Nullable<int> cat_id_fk { get; set; }
         public Nullable<int> admin_id_fk { get; set; }
 
-        public Nullable<int> subcat_user_id_fk { get; set; }
+        public Nullable<int> pro_user_id_fk { get; set; }
 
         public int cat_id { get; set; }
         public string cat_name { get; set; }

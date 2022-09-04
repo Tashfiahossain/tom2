@@ -1,6 +1,6 @@
 ﻿
 @using PagedList.Mvc
-@model  PagedList.IPagedList<tom2.Models.product>
+@model PagedList.IPagedList<tom2.Models.product>
 
 @{
     ViewBag.Title = ("Index");
@@ -93,12 +93,12 @@
 
 
                                     <div class="col-lg-4 col-md-4" style="height:220px;margin-top:160px">
-                                        <img src="@Url.Content(item.subcat_image)" style=" height:130%;width:100%" />
+                                        <img src="@Url.Content(item.pro_image)" style=" height:130%;width:100%" />
                                         <br />
-                                        <h4 style="color:#808080; font-family:'Arial Rounded MT';text-align:center;margin-top:20px">@Html.ActionLink(@item.subcat_name, "ViewDetail", new { id = @item.subcat_id })</h4>
+                                        <h4 style="color:#808080; font-family:'Arial Rounded MT';text-align:center;margin-top:20px">@Html.ActionLink(@item.pro_name, "ViewDetail", new { id = @item.pro_id })</h4>
                                         <h4 style="text-align:center">
 
-                                            <a class="btn btn-primary" href="@Url.Action("Ad_tocart",new {id = @item.subcat_id  })">
+                                            <a class="btn btn-primary" href="@Url.Action("Ad_tocart",new {id = @item.pro_id  })">
                                                 <i style="font-size:24px" class="fa">&#xf07a;</i>Add to Cart
                                             </a>
 
