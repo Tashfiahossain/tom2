@@ -100,7 +100,7 @@
                     <div class="input-group">
                         <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
                         @*<asp:TextBox ID="TextBox1" runat="server" class="form-control" placeholder="Username" required="required"></asp:TextBox>*@
-                        @Html.TextBoxFor(x => x.subcat_desc, new { @class = "form-control", @placeholder = "Description" })
+                        @Html.TextBoxFor(x => x.pro_desc, new { @class = "form-control", @placeholder = "Description" })
 
                     </div>
                     <span style="color:red">   @Html.ValidationMessageFor(x => x.pro_desc) </span>
