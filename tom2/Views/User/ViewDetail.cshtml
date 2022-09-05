@@ -7,44 +7,115 @@
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
-<style>
-    td {
-        padding: 20px;
-    }
-</style>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+   
 
 
+    <meta name="viewport" content="width=device-width" />
+    <title>View  Category</title>
+    <link href="~/Content/paginition.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
 
-<div class="col-lg-8 col-md-8">
+    <link href="~/Content/Cat_Style/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Cat_Style/style.css" rel="stylesheet" />
+    <link href="~/Content/Cat_Style/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/Cat_Style/flexslider.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <div>
-        <h1>@Model.subcat_name <small>AD-ID:@Model.pro_id</small></h1>
+</head>
+<body>
+    <div class="container" style="height:1000px">
+
+        <div>
+            <h1 style="padding:30px">@Model.pro_name </h1>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                <img src="@Url.Content(@Model.pro_image)" style="width:500PX; height:450PX" />
+
+            </div>
+
+            <div class="col-sm-6">
+                <div>
+                    <h1>Description: </h1>
+                    <p style="padding:10px">@Model.pro_desc</p>
+                </div>
+                <table>
+
+                    <tr style="padding:5px"> <td style="padding:5px" ><b>Price:</b> </td"> <td>@Model.pro_price TK</td> </tr>
+                    <tr style="padding:5px"> <td style="padding:5px"><b>Category: </b> </td> <td>@Model.cat_name </td> </tr>
+
+                </table>
+
+
+            </div>
+        </div>
     </div>
 
-    <img src="@Url.Content(@Model.subcat_image)" style="width:500PX; height:450PX" />
+    <div class="footer">
+        <div class="container">
+            <div class="w3_footer_grids">
+                <div class="col-sm-4 w3_footer_grid">
+                    <h3>Contact</h3>
 
-    <div>
-        <h1>Description: </h1>
-        <p>@Model.subcat_desc</p>
+                    <ul class="address">
+
+                        <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto:tom@gmail.com">tomutensilo@gmail.com</a></li>
+                        <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>01404697652</li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-4 w3_footer_grid">
+                    <h3>About US</h3>
+                    <p>We are a crockeries website where we will provide you with the best crockeries</p>
+                </div>
+                <div class="col-sm-4 w3_footer_grid">
+
+                    <h3>Follow Us</h3>
+                    <div class="agileits_social_button">
+                        <ul>
+                            <li><a href="#" class="facebook"> </a></li>
+                            <li><a href="#" class="twitter"> </a></li>
+                            <li><a href="#" class="google"> </a></li>
+                            <li><a href="#" class="pinterest"> </a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+
+        <div class="footer-copy">
+
+            <p>&copy; 2022  Utensilo Shop. All rights reserved | Design by <a href="http://w3layouts.com/">TOM UTENSILO</a></p>
+
+        </div>
     </div>
 
-    <table>
+    <script src="js/minicart.js"></script>
+    <script>
+                            w3ls.render();
 
-        <tr> <td>Price: </td> <td>@Model.subcat_price </td> </tr>
-        <tr> <td>Category: </td> <td>@Model.cat_name </td> </tr>
+                            w3ls.cart.on('w3sb_checkout', function (evt) {
+                                var items, len, i;
 
+                                if (this.subtotal() > 0) {
+                                    items = this.items();
 
+                                    for (i = 0, len = items.length; i < len; i++) {
+                                    }
+                                }
+                            });
+    </script>
+</body>
+</html>
 
-
-
-
-    </table>
-
-
-
-</div>
-<div class="col-lg-2 col-md-2">
-    <img src="~/Content/img/150_sleep1_600.gif" class="img img-responsive" style=" height:500px;" />
-</div>
 
 

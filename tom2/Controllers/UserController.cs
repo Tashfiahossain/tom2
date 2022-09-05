@@ -299,7 +299,7 @@ namespace tom2.Controllers
             iv.in_date = System.DateTime.Now;
             iv.in_totalbill = (Convert.ToInt32(TempData["total"]));
             db.invoicetables.Add(iv);
-            db.SaveChanges();
+            //db.SaveChanges();
 
             foreach (var item in li)
             {

@@ -89,15 +89,15 @@ namespace tom2.Controllers
 
             return View(cate);
         }
-        //public ActionResult Index(int? page)
-        //{
-        //    int pagesize = 9, pageindex = 1;
-        //    pageindex = page.HasValue ? Convert.ToInt32(page) : 1;
-        //    var list = db.categories.Where(x => x.cat_status == 1).OrderBy(x => x.cat_id).ToList();
-        //    IPagedList<category> cate = list.ToPagedList(pageindex, pagesize);
-        //    return View(cate);
+        public ActionResult Index(int? page)
+        {
+          int pagesize = 9, pageindex = 1;
+            pageindex = page.HasValue ? Convert.ToInt32(page) : 1;
+            var list = db.categories.Where(x => x.cat_status == 1).OrderBy(x => x.cat_id).ToList();
+            IPagedList<category> cate = list.ToPagedList(pageindex, pagesize);
+            return View(cate);
 
-        //}
+        }
 
         [HttpGet]
         public ActionResult CreateAdd()
@@ -174,6 +174,10 @@ namespace tom2.Controllers
             return View(cate);
         }
 
+        public ActionResult Total_BILL(order_table o)
+        {
+            return View(db.order_table.ToList());
+        }
 
 
 
@@ -295,14 +299,19 @@ namespace tom2.Controllers
 
         }
 
+        
+
         public ActionResult Add_Delete(int? id)
         {
            product p = db.products.Where(x => x.pro_id == id).SingleOrDefault();
             db.products.Remove(p);
             db.SaveChanges();
 
-            return RedirectToAction("ViewCategory");
+            return RedirectToAction("Index");
         }
+
+        
+
 
 
     }

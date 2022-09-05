@@ -6,33 +6,59 @@
     ViewBag.Title = "Ad_tocart";
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
+
+<style>
+    .container{
+       font-size:small;
+    }
+</style>
+
+
+
 @using (Html.BeginForm())
 {
 
-    <div class="col-lg-8 col-md-8">
+    
+
+
+    <div class="container">
 
         <div>
-            <h1>@Model.pro_name <small>AD-ID:@Model.pro_id</small></h1>
+            <h1>@Model.pro_name </h1>
         </div>
 
-        <img src="@Url.Content(@Model.pro_image)" style="width:500PX; height:450PX" />
+        <div class="row">
+            <div class="col-sm-6">
 
-        <div>
-            <h1>Description: </h1>
-            <p>@Model.pro_desc</p>
+                <img src="@Url.Content(@Model.pro_image)" style="width:500PX; height:450PX" />
+
+            </div>
+
+            <div class="col-sm-6">
+                <div>
+                    <h1>Description: </h1>
+                    <p>@Model.pro_desc</p>
+                </div>
+                <table>
+
+                    <h1 style="font-size:large"><b>Price:</b> TK @Model.pro_price </h1>
+                    <h1 style="font-size:large"><b>Name:</b> @Model.pro_name </h1>
+
+                    
+
+                </table>
+                <input type="number" name="qty" value="0" id="qty" min="1" />
+                <input type="submit" name="Submit" class="btn btn-danger" />
+
+
+            </div>
         </div>
-
-        <h1>Price: @Model.pro_price </h1>
-        <h1>Name: @Model.pro_name </h1>
-        <h1>:Description @Model.pro_desc </h1>
-
-        <input type="number" name="qty" value="0" id="qty" min="1" />
-        <input type="submit" name="Submit" class="btn btn-danger" />
-
     </div>
-    <div class="col-lg-2 col-md-2">
-        <img src="~/Content/img/150_sleep1_600.gif" class="img img-responsive" style=" height:500px;" />
-    </div>
+
+
+
+
+
 
 
 

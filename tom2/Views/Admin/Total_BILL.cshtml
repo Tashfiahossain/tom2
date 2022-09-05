@@ -1,0 +1,37 @@
+﻿@model IEnumerable<tom2.Models.order_table>
+@{
+    ViewBag.Title = "Total_BILL";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<h2>Total Bill</h2>
+<table class= = "table table-bordered">
+    <thead>
+        <tr>
+            <th>ORDER ID</th>
+            <th>ORDER DATE</th>
+            <th>ORDER QUANTITY</th>
+            <th>ORDER UNIT PRICE</th>
+            <th>TOTAL BILL</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model!=null)
+        {
+            foreach(var item in Model)
+                {
+        <tr>
+            <td>@item.o_id</td>
+            <td>@item.o_date</td>
+            <td>@item.o_qty </td>
+            <td>@item.o_unitprice </td>
+            <td>@item.o_bill </td>
+
+        </tr>
+                }
+        }
+    </tbody>
+</table>
